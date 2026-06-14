@@ -9,8 +9,8 @@ class Bonus:
     @staticmethod
     def apply(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
         action = Bonus.get_action(conf)
-        print('bonus ' + action)
-        return Bonus.unless_at_least(hand, current, conf)
+        method = getattr(Bonus, action)
+        return method(hand, current, conf)
 
     @staticmethod
     def get_action(conf: dict[str, Any]) -> str:
@@ -19,6 +19,20 @@ class Bonus:
     @staticmethod
     def add_base_strength_among(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
         return False
+
+    @staticmethod
+    def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                current.add_bonus( int(params['value']))
+                found = True
+        return found
+
+
+
 
 """
 
@@ -150,21 +164,7 @@ class Bonus:
         return true;
     }
 
-    public static function forEach(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->hasSuitAmong($params['suits'])) {
-                $current->addBonus((int) $params['value']);
-                $found = true;
-            }
-        }
 
-        return $found;
-    }
 
     public static function ifNo(Hand $hand, Card $current, array $params): bool
     {

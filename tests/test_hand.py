@@ -19,12 +19,11 @@ def test_applies_penalty_when_dragon_has_not_a_wizard():
     hand = init_hand(deck, [Card.DRAGON])
     assert hand.get_total() == -10
 
-"""
+def test_neutralizes_penalty_when_dragon_is_with_a_a_wizard():
+    hand = init_hand(deck, [Card.DRAGON, Card.ELEMENTAL_ENCHANTRESS])
+    assert hand.get_total() == 35
 
-it('neutralizes penalty when dragon is with a wizard', function (): void {
-    $hand = init_hand($this->deck, [Glossary::CARD_DRAGON, Glossary::CARD_ELEMENTAL_ENCHANTRESS]);
-    expect($hand->getTotal())->toBe(35);
-});
+"""
 
 it('gets points for princess with elemental enchantress', function (): void {
     $hand = init_hand($this->deck, [Glossary::CARD_PRINCESS, Glossary::CARD_ELEMENTAL_ENCHANTRESS]);

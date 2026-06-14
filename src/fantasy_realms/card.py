@@ -57,7 +57,6 @@ class Card:
             return
         Bonus.apply(hand, self, self.bonus)
 
-
     def apply_penalty(self, hand: "Hand"):
         if len(self.penalty) == 0:
             return
@@ -78,7 +77,6 @@ class Card:
     def get_value(self) -> int:
         return self.value
 
-
     def has_suit_among(self, suits :list[Suit]) -> bool:
         return self.suit in suits
 
@@ -93,18 +91,10 @@ class Card:
     def get_name(self) -> str:
         return self.name
 
+    def add_bonus(self, value: int):
+        self.value += value
 """
 {
-
-
-    public function addBonus(int $value): self
-    {
-        $this->value += $value;
-
-        return $this;
-    }
-
-
 
     public function blank(): self
     {
