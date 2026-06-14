@@ -40,9 +40,9 @@ class Card:
     def apply(self, hand: "Hand"):
         self.apply_bonus(hand)
         self.apply_penalty(hand)
-        
-        return hand    
-    
+
+        return hand
+
     def apply_bonus(self, hand: "Hand"):
         if len(self.bonus) == 0:
             return
@@ -56,7 +56,7 @@ class Card:
                     break
             return
         Bonus.apply(hand, self, self.bonus)
-        
+
 
     def apply_penalty(self, hand: "Hand"):
         if len(self.penalty) == 0:
@@ -79,9 +79,9 @@ class Card:
         return self.value
 
 
-    def has_suit_among(self, suits :list[Suit]) -> bool: 
+    def has_suit_among(self, suits :list[Suit]) -> bool:
         return self.suit in suits
-    
+
     def is_same_as(self, card: "Card|str") -> bool:
         if isinstance(card, Card):
             return card.get_name() == self.name
@@ -104,7 +104,7 @@ class Card:
         return $this;
     }
 
-    
+
 
     public function blank(): self
     {
@@ -159,9 +159,9 @@ class Card:
         return $this->base_strength;
     }
 
-    
 
-    
+
+
 
     public function getPenalty(): array
     {
@@ -173,14 +173,14 @@ class Card:
         return $this->suit;
     }
 
-    
+
 
     public function hasPenalty(): bool
     {
         return !empty($this->penalty);
     }
 
-    
+
 
     public function isAmong(array $cards): bool
     {
@@ -192,9 +192,9 @@ class Card:
         return $this->suit === Glossary::SUIT_NONE;
     }
 
-    
 
-   
+
+
 
     public function removeWordFromPenalty(int|string $word): self
     {
@@ -220,6 +220,6 @@ class Card:
         return $this;
     }
 
-    
+
 }
 """

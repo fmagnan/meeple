@@ -347,7 +347,7 @@ deck = {
                 'action': Action.WITH_CARD,
                 'value': 28,
                 'cards': [
-                        
+
                              Card.SWAMP
                 ]
             },

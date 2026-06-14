@@ -10,7 +10,7 @@ class Penalty:
     def apply(hand: "Hand", current: "Card", conf: dict[str, Any]):
         action = Penalty.get_action(conf)
         return Penalty.unless_at_least(hand, current, conf)
-    
+
     @staticmethod
     def get_action(conf: dict[str, Any]) -> str:
         return conf['action']
@@ -18,7 +18,7 @@ class Penalty:
     @staticmethod
     def add_base_strength_among(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
         return False
-    
+
     @staticmethod
     def unless_at_least(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
@@ -29,8 +29,8 @@ class Penalty:
                 found = True
         if not found:
             current.substract_penalty(int(params['value']))
-        
-        return not found    
+
+        return not found
 
 """
 
@@ -96,7 +96,7 @@ public static function apply(Hand $hand, Card $current, array $conf): bool
         return $found;
     }
 
-    
+
 
     public static function withCard(Hand $hand, Card $current, array $params): bool
     {
@@ -114,6 +114,6 @@ public static function apply(Hand $hand, Card $current, array $conf): bool
         return $found;
     }
 
-    
+
 }
 """

@@ -38,10 +38,10 @@ class Hand:
     /** @var Card[] */
     private array $cards = [];
 
-    
-    
 
-    
+
+
+
 
     public function hasCard(string $name): bool
     {
@@ -68,6 +68,6 @@ class Hand:
         return false;
     }
 
-    
+
 }
 """

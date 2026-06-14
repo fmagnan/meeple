@@ -11,15 +11,15 @@ class Bonus:
         action = Bonus.get_action(conf)
         print('bonus ' + action)
         return Bonus.unless_at_least(hand, current, conf)
-    
+
     @staticmethod
     def get_action(conf: dict[str, Any]) -> str:
         return conf['action']
-    
+
     @staticmethod
     def add_base_strength_among(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
         return False
-   
+
 """
 
     public static function addBaseStrengthAmong(Hand $hand, Card $current, array $params): bool
