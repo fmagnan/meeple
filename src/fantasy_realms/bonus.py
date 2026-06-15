@@ -54,7 +54,6 @@ class Bonus:
 
         if found:
             current.add_bonus(int(params['value']))
-
         return found
 
     @staticmethod
@@ -66,6 +65,17 @@ class Bonus:
             if card.has_suit_among(params['suits']):
                 card.clear_penalty()
                 found = True
+        return found
+
+    @staticmethod
+    def if_no(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found=True
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                return False
+        current.add_bonus(int(params['value']))
         return found
 
 """
@@ -186,20 +196,7 @@ class Bonus:
 
 
 
-    public static function ifNo(Hand hand, Card current, array params): bool
-    {
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(current)) {
-                continue
-            }
-            if (card->hasSuitAmong(params['suits'])) {
-                return false
-            }
-        }
-        current->addBonus((int) params['value'])
 
-        return true
-    }
 
     public static function takeOneMoreCardAtEnd(Hand hand, Card current, array params): bool
     {

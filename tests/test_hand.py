@@ -47,27 +47,23 @@ def test_does_nothing_when_island_is_with_dragon():
     hand = init_hand(deck, [Card.DRAGON, Card.ISLAND])
     assert hand.get_total() == 4
 
+def test_clears_penalty_from_swamp_with_island():
+    hand = init_hand(deck, [Card.SWAMP, Card.ISLAND, Card.DWARVISH_INFANTRY])
+    assert hand.get_total() == 47
+
+def test_adds_points_to_elven_archers_when_there_is_no_weather():
+    hand = init_hand(deck, [Card.ELVEN_ARCHERS, Card.ISLAND])
+    assert hand.get_total() == 29
+
+def test_cancels_elven_archers_bonus_with_air_elemental():
+    hand = init_hand(deck, [Card.ELVEN_ARCHERS, Card.AIR_ELEMENTAL])
+    assert hand.get_total() == 14
+
+def test_blanks_fire_elemental_with_rainstorm():
+    hand = init_hand(deck, [Card.RAINSTORM, Card.FIRE_ELEMENTAL])
+    assert hand.get_total() == 8
+
 """
-
-it('clears penalty from swamp with island', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SWAMP, Glossary::CARD_ISLAND, Glossary::CARD_DWARVISH_INFANTRY])
-    expect(hand->getTotal())->toBe(47)
-})
-
-it('adds points to elven archers when there is no weather', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_ELVEN_ARCHERS, Glossary::CARD_ISLAND])
-    expect(hand->getTotal())->toBe(29)
-})
-
-it('cancels elven archers bonus with air elemental', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_ELVEN_ARCHERS, Glossary::CARD_AIR_ELEMENTAL])
-    expect(hand->getTotal())->toBe(14)
-})
-
-it('blanks fire elemental with rainstorm', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_RAINSTORM, Glossary::CARD_FIRE_ELEMENTAL])
-    expect(hand->getTotal())->toBe(8)
-})
 
 it('blanks hydra with wildfire', function (): void {
     hand = init_hand(this->deck, [Glossary::CARD_WILDFIRE, Glossary::CARD_HYDRA])

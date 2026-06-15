@@ -36,7 +36,7 @@ class Penalty:
     @staticmethod
     def blanks(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         target_suits = params.get('targets', {}).get('suits', [])
-        excludes = params.get('targets', [])
+        excludes = params.get('excludes', [])
         found = False
         for card in hand.get_cards():
             if card.is_same_as(current):
