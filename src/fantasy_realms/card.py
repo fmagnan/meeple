@@ -48,11 +48,11 @@ class Card:
             return
         if self.bonus.get('and'):
             for bonus in self.bonus['and']:
-                bonus.apply(hand, self, self.bonus)
+                Bonus.apply(hand, self, bonus)
             return
         if self.bonus.get('or'):
             for bonus in self.bonus['or']:
-                if bonus.apply(hand, self, self.bonus):
+                if Bonus.apply(hand, self, bonus):
                     break
             return
         Bonus.apply(hand, self, self.bonus)
@@ -62,11 +62,11 @@ class Card:
             return
         if self.penalty.get('and'):
             for penalty in self.penalty['and']:
-                penalty.apply(hand, self, self.penalty)
+                Penalty.apply(hand, self, penalty)
             return
         if self.penalty.get('or'):
             for penalty in self.penalty['or']:
-                if penalty.apply(hand, self, self.penalty):
+                if Penalty.apply(hand, self, penalty):
                     break
             return
         Penalty.apply(hand, self, self.penalty)

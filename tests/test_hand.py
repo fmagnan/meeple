@@ -63,42 +63,35 @@ def test_blanks_fire_elemental_with_rainstorm():
     hand = init_hand(deck, [Card.RAINSTORM, Card.FIRE_ELEMENTAL])
     assert hand.get_total() == 8
 
+def test_blanks_hydra_with_wildfire():
+    hand = init_hand(deck, [Card.WILDFIRE, Card.HYDRA])
+    assert hand.get_total() == 40
+
+def test_do_not_blank_dragon_with_wildfire():
+    hand = init_hand(deck, [Card.WILDFIRE, Card.DRAGON])
+    assert hand.get_total() == 30
+
+def test_blanks_smoke_when_there_is_no_flame():
+    hand = init_hand(deck, [Card.SMOKE, Card.AIR_ELEMENTAL])
+    assert hand.get_total() == 4
+
+def test_counts_smoke_with_fire_elemental():
+    hand = init_hand(deck, [Card.SMOKE, Card.FIRE_ELEMENTAL])
+    assert hand.get_total() == 31
+
+def test_does_nothing_when_dragon_and_bell_tower_are_together():
+    hand = init_hand(deck, [Card.DRAGON, Card.BELL_TOWER])
+    assert hand.get_total() == -2
+
+def test_does_nothing_when_celestial_knights_and_beast_master_are_together():
+    hand = init_hand(deck, [Card.CELESTIAL_KNIGHTS, Card.BEASTMASTER])
+    assert hand.get_total() == 21
+
+def test_add_points_when_unicorn_meets_beast_master():
+    hand = init_hand(deck, [Card.UNICORN, Card.BEASTMASTER])
+    assert hand.get_total() == 27
+
 """
-
-it('blanks hydra with wildfire', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_WILDFIRE, Glossary::CARD_HYDRA])
-    expect(hand->getTotal())->toBe(40)
-})
-
-it('does not blank dragon with wildfire', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_WILDFIRE, Glossary::CARD_DRAGON])
-    expect(hand->getTotal())->toBe(30)
-})
-
-it('blanks smoke when there is no flame', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SMOKE, Glossary::CARD_AIR_ELEMENTAL])
-    expect(hand->getTotal())->toBe(4)
-})
-
-it('counts smoke with fire elemental', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SMOKE, Glossary::CARD_FIRE_ELEMENTAL])
-    expect(hand->getTotal())->toBe(31)
-})
-
-it('does nothing when dragon and bell tower are together', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_DRAGON, Glossary::CARD_BELL_TOWER])
-    expect(hand->getTotal())->toBe(-2)
-})
-
-it('does nothing when beast master and celestial knights are together', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_CELESTIAL_KNIGHTS, Glossary::CARD_BEASTMASTER])
-    expect(hand->getTotal())->toBe(21)
-})
-
-it('adds points when beast master encounters unicorn', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_BEASTMASTER, Glossary::CARD_UNICORN])
-    expect(hand->getTotal())->toBe(27)
-})
 
 it('adds maximum points for unicorn with princess', function (): void {
     hand = init_hand(this->deck, [Glossary::CARD_UNICORN, Glossary::CARD_PRINCESS])
