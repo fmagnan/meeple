@@ -89,6 +89,15 @@ class Bonus:
         current.add_bonus(int(params['value']))
         return True
 
+    @staticmethod
+    def change_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        for card in hand.get_cards():
+            if card.is_same_as(params['card']):
+                continue
+            card.change_suit(params['suit'])
+            return True
+        return False
+
 
 """
 
@@ -129,17 +138,7 @@ class Bonus:
         return false
     }
 
-    public static function changeSuit(Hand hand, Card current, array params): bool
-    {
-        foreach (hand->getCards() as card) {
-            if (!card->isSameAs(params['card'])) {
-                continue
-            }
-            card->changeSuit(params['suit'])
-            return true
-        }
-        return false
-    }
+
 
 
 

@@ -1,7 +1,7 @@
 from typing import Any
 
 from fantasy_realms.deck import deck
-from fantasy_realms.glossary import Card
+from fantasy_realms.glossary import Card, Suit
 from fantasy_realms.hand import Hand
 
 
@@ -107,15 +107,19 @@ def test_adds_points_when_shield_of_keth_is_handled_by_a_leader():
     hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.PRINCESS])
     assert hand.get_total() == 21
 
+def test_combines_when_king_has_shield_and_sword_of_keth():
+    hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.KING, Card.SWORD_OF_KETH])
+    assert hand.get_total() == 99
+
+def test_gets_full_points_when_candle_has_bell_tower_and_book_of_changes_and_any_wizard():
+    hand = init_hand(deck, [Card.BEASTMASTER, Card.BELL_TOWER, Card.CANDLE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
+    assert hand.get_total() == 137
 
 """
 
 
 
-it('combines when king has shield and sword of keth', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SHIELD_OF_KETH, Glossary::CARD_KING, Glossary::CARD_SWORD_OF_KETH])
-    expect(hand->getTotal())->toBe(99)
-})
 
 it('gets full points when candle has bell tower, book of changes and any wizard', function (): void {
     hand = init_hand(this->deck, [
