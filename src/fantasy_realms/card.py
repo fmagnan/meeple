@@ -71,25 +71,16 @@ class Card:
             return
         Penalty.apply(hand, self, self.penalty)
 
-    def get_bonus(self) -> dict[str, Any]:
-         return self.bonus
-
-    def get_value(self) -> int:
-        return self.value
-
     def has_suit_among(self, suits :list[Suit]) -> bool:
         return self.suit in suits
 
     def is_same_as(self, card: "Card|str") -> bool:
         if isinstance(card, Card):
-            return card.get_name() == self.name
+            return card.name == self.name
         return card == self.name
 
     def substract_penalty(self, penalty_amount :int) -> None:
         self.value -= penalty_amount
-
-    def get_name(self) -> str:
-        return self.name
 
     def add_bonus(self, value: int):
         self.value += value
@@ -106,88 +97,88 @@ class Card:
         self.suit = Suit.NONE
 """
 
-    public function changeSuit(int $suit): self
+    public function changeSuit(int suit): self
     {
-        $this->suit = $suit;
+        this->suit = suit
 
-        return $this;
+        return this
     }
 
     public function clearPenalty(): self
     {
-        $this->penalty = [];
+        this->penalty = []
 
-        return $this;
+        return this
     }
 
-    public function duplicate(Card $from): self
+    public function duplicate(Card from): self
     {
-        $this->name = $from->getName();
-        $this->base_strength = $from->getBaseStrength();
-        $this->value = $this->base_strength;
-        $this->bonus = [];
-        $this->penalty = $from->getPenalty();
-        $this->suit = $from->getSuit();
+        this->name = from->getName()
+        this->base_strength = from->getBaseStrength()
+        this->value = this->base_strength
+        this->bonus = []
+        this->penalty = from->getPenalty()
+        this->suit = from->getSuit()
 
-        return $this;
+        return this
     }
 
-    public static function fromConf(string $name, array $conf) : self
+    public static function fromConf(string name, array conf) : self
     {
-        return new self($name, (int) $conf['suit'], (int) $conf['base_strength'], $conf['bonus'] ?? [], $conf['penalty'] ?? []);
+        return new self(name, (int) conf['suit'], (int) conf['base_strength'], conf['bonus'] ?? [], conf['penalty'] ?? [])
     }
 
-    public static function fromDeck(string $name, array $deck) : self
+    public static function fromDeck(string name, array deck) : self
     {
-        return self::fromConf($name, $deck[$name]);
+        return self::fromConf(name, deck[name])
     }
 
     public function getBaseStrength(): int
     {
-        return $this->base_strength;
+        return this->base_strength
     }
 
     public function getPenalty(): array
     {
-        return $this->penalty;
+        return this->penalty
     }
 
     public function getSuit(): int
     {
-        return $this->suit;
+        return this->suit
     }
 
     public function hasPenalty(): bool
     {
-        return !empty($this->penalty);
+        return !empty(this->penalty)
     }
 
     public function isBlanked(): bool
     {
-        return $this->suit === Glossary::SUIT_NONE;
+        return this->suit === Glossary::SUIT_NONE
     }
 
-    public function removeWordFromPenalty(int|string $word): self
+    public function removeWordFromPenalty(int|string word): self
     {
-        if (is_int($word)) {
-            if (($key = array_search($word, $this->penalty['suits'])) !== false) {
-                unset($this->penalty['suits'][$key]);
+        if (is_int(word)) {
+            if ((key = array_search(word, this->penalty['suits'])) !== false) {
+                unset(this->penalty['suits'][key])
             }
         } else {
-            if (($key = array_search($word, $this->penalty['cards'])) !== false) {
-                unset($this->penalty['cards'][$key]);
+            if ((key = array_search(word, this->penalty['cards'])) !== false) {
+                unset(this->penalty['cards'][key])
             }
         }
 
-        return $this;
+        return this
     }
 
 
-    public function takeOnNameAndSuit(Card $from) : self
+    public function takeOnNameAndSuit(Card from) : self
     {
-        $this->name = $from->getName();
-        $this->suit = $from->getSuit();
+        this->name = from->getName()
+        this->suit = from->getSuit()
 
-        return $this;
+        return this
     }
 """

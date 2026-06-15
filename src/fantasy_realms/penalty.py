@@ -50,67 +50,36 @@ class Penalty:
                 found = True
         return found
 
+    @staticmethod
+    def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                current.substract_penalty(int(params['value']))
+                found = True
+        return found
 
-"""
+    @staticmethod
+    def blanked_unless(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                return False
+            current.blank()
+            found = True
+        return found
 
-public static function apply(Hand $hand, Card $current, array $conf): bool
-    {
-        return self::{self::getAction($conf)}($hand, $current, $conf);
-    }
-
-    public static function blankedUnless(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->hasSuitAmong($params['suits'])) {
-                return false;
-            }
-            $current->blank();
-            $found = true;
-        }
-
-        return $found;
-    }
-
-
-
-    public static function forEach(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->hasSuitAmong($params['suits'])) {
-                $current->substractPenalty((int) $params['value']);
-                $found = true;
-            }
-        }
-
-        return $found;
-    }
-
-
-
-    public static function withCard(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->isAmong($params['cards'])) {
-                $current->substractPenalty((int) $params['value']);
-                $found = true;
-            }
-        }
-
-        return $found;
-    }
-
-
-}
-"""
+    @staticmethod
+    def with_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.is_among(params['cards']):
+                current.substract_penalty(int(params['value']))
+                found = True
+        return found
