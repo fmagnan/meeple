@@ -182,26 +182,21 @@ class Bonus:
                 maximum_value = card.base_strength
         current.add_bonus(maximum_value)
         return False
+
+    @staticmethod
+    def duplicate(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        for card in hand.cards:
+            if card.is_same_as(params['card']):
+                current.duplicate(card)
+                return True
+        return False
+
+    @staticmethod
+    def take_one_more_card_at_the_end(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        hand.add_card(params['card'])
+        return True
 """
 
-    public static function duplicate(Hand hand, Card current, array params): bool
-    {
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(params['card'])) {
-                current->duplicate(card)
-                return true
-            }
-        }
-
-        return false
-    }
-
-    public static function takeOneMoreCardAtEnd(Hand hand, Card current, array params): bool
-    {
-        hand->addCard(params['card'])
-
-        return true
-    }
 
     public static function takeOnNameAndSuit(Hand hand, Card current, array params): bool
     {

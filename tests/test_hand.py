@@ -182,6 +182,10 @@ def test_cannot_choose_any_card_with_fountain_of_life_and_only_artifacts():
     hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.PROTECTION_RUNE, 'suit': Suit.WILD})
     assert hand.get_total() == 76
 
+def test_add_a_last_card_with_necromancer():
+    hand = init_hand(deck, [Card.DRAGON, Card.EARTH_ELEMENTAL])
+    hand.add_card(Card.NECROMANCER, { 'card': Card.UNICORN })
+    assert hand.get_total() == 46
 
 """
 
@@ -189,16 +193,7 @@ def test_cannot_choose_any_card_with_fountain_of_life_and_only_artifacts():
 
 
 
-it('can add a last card with necromancer', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_EARTH_ELEMENTAL,
-    ])
-    hand->addCard(Glossary::CARD_NECROMANCER, [
-        'card' => Glossary::CARD_UNICORN
-    ])
-    expect(hand->getTotal())->toBe(46)
-})
+
 
 it('can have two times the same card because of the doppelganger', function (): void {
     hand = init_hand(this->deck, [

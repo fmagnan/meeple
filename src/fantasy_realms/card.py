@@ -116,19 +116,17 @@ class Card:
     def is_blanked(self):
         return self.suit == Suit.NONE
 
+    def duplicate(self, origin :"Card"):
+        self.name = origin.name
+        self.base_strength = origin.base_strength
+        self.value = origin.base_strength
+        self.bonus = {}
+        self.penalty = origin.penalty
+        self.suit = origin.suit
+
 """
 
-    public function duplicate(Card from): self
-    {
-        this->name = from->getName()
-        this->base_strength = from->getBaseStrength()
-        this->value = this->base_strength
-        this->bonus = []
-        this->penalty = from->getPenalty()
-        this->suit = from->getSuit()
 
-        return this
-    }
 
     public static function fromDeck(string name, array deck) : self
     {
