@@ -144,6 +144,37 @@ class Bonus:
         current.add_bonus(int(params['value']))
         return True
 
+    @staticmethod
+    def card_run(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        base_strengths = []
+        for card in hand.cards:
+            if not card.base_strength in base_strengths:
+                base_strengths.append(card.base_strength)
+        longest_run = Bonus.look_for_longest_run(base_strengths)
+        if longest_run >= int(params['cards']):
+            current.add_bonus(int(params['value']))
+            return True
+        return False
+
+    @staticmethod
+    def look_for_longest_run(strengths: list[int]) -> int:
+        if len(strengths) == 0:
+            return 0
+        strengths.sort()
+        longest_run = []
+        current_run = [strengths[0]]
+        for i in range(1, len(strengths)):
+            if strengths[i] == strengths[i-1] +1:
+                current_run.append(strengths[i])
+            else:
+                if len(current_run) > len(longest_run):
+                    longest_run = current_run
+                current_run =[strengths[i]]
+        if len(current_run) > len(longest_run):
+            longest_run=current_run
+        return len(longest_run)
+
+
 """
 
     public static function addBaseStrengthAmong(Hand hand, Card current, array params): bool
@@ -161,24 +192,6 @@ class Bonus:
             }
         }
         current->addBonus(maximumValue)
-
-        return false
-    }
-
-    public static function cardRun(Hand hand, Card current, array params): bool
-    {
-        baseStrengths = []
-        foreach (hand->getCards() as card) {
-            if (!in_array(card->getBaseStrength(), baseStrengths)) {
-                baseStrengths[] = card->getBaseStrength()
-            }
-        }
-        longestRun = self::lookForLongestRun(baseStrengths)
-
-        if (longestRun >= params['cards']) {
-            current->addBonus((int) params['value'])
-            return true
-        }
 
         return false
     }
@@ -230,35 +243,5 @@ class Bonus:
     private static function getAction(array conf): string
     {
         return conf['action']
-    }
-
-    private static function lookForLongestRun(array input): int
-    {
-        if (empty(input)) {
-            return 0
-        }
-
-        sort(input)
-
-        longestRun = []
-        currentRun = [input[0]]
-
-        for (i = 1 i < count(input) i++) {
-            if (input[i] == (input[i - 1] + 1)) {
-                currentRun[] = input[i]
-            } else {
-                if (count(currentRun) > count(longestRun)) {
-                    longestRun = currentRun
-                }
-                currentRun = [input[i]]
-            }
-        }
-        if (count(currentRun) > count(longestRun)) {
-            longestRun = currentRun
-        }
-
-        return count(longestRun)
-    }
-}
 
 """

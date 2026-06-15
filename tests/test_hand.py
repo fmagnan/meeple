@@ -162,26 +162,12 @@ def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_s
     hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.COLLECTOR, 'suit': Suit.WEAPON})
     assert hand.get_total() == 12
 
+def test_cannot_choose_any_card_with_fountain_of_life_and_only_artifacts():
+    hand = init_hand(deck, [Card.FOUNTAIN_OF_LIFE, Card.GEM_OF_ORDER, Card.PROTECTION_RUNE, Card.SHIELD_OF_KETH, Card.WORLD_TREE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.PROTECTION_RUNE, 'suit': Suit.WILD})
+    assert hand.get_total() == 76
+
 """
-
-
-
-
-
-it('cannot choose any card with fountain of life and only artifacts', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_FOUNTAIN_OF_LIFE,
-        Glossary::CARD_GEM_OF_ORDER,
-        Glossary::CARD_PROTECTION_RUNE,
-        Glossary::CARD_SHIELD_OF_KETH,
-        Glossary::CARD_WORLD_TREE,
-    ])
-    hand->addCard(Glossary::CARD_BOOK_OF_CHANGES, [
-        'card' => Glossary::CARD_PROTECTION_RUNE,
-        'suit' => Glossary::SUIT_WILD,
-    ])
-    expect(hand->getTotal())->toBe(76)
-})
 
 it('gains maximum value among various flood cards with fountain of life', function (): void {
     hand = init_hand(this->deck, [
