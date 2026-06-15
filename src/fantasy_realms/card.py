@@ -95,21 +95,15 @@ class Card:
         self.penalty = {}
         self.name = ''
         self.suit = Suit.NONE
+
+    def clear_penalty(self):
+        self.penalty = {}
+
+    def change_suit(self, suit :Suit):
+        self.suit = suit
+
+
 """
-
-    public function changeSuit(int suit): self
-    {
-        this->suit = suit
-
-        return this
-    }
-
-    public function clearPenalty(): self
-    {
-        this->penalty = []
-
-        return this
-    }
 
     public function duplicate(Card from): self
     {

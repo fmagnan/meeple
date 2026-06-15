@@ -14,11 +14,11 @@ class Hand:
     def count_cards(self):
         return len(self.cards)
 
-    def sort_cards_by_priority(self):
+    def sort_cards_by_priority(self) -> None:
         for index, card in enumerate(self.cards):
             if card.is_prior(card.bonus):
-                out = self.cards[index, index+1]
-                self.cards[0,0] = out
+                out = self.cards.pop(index)
+                self.cards.insert(0, out)
 
     def get_total(self):
         self.sort_cards_by_priority()

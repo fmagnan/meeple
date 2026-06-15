@@ -43,12 +43,11 @@ def test_adds_points_from_each_flood_for_rainstorm():
     hand = init_hand(deck, [Card.RAINSTORM, Card.SWAMP, Card.WATER_ELEMENTAL])
     assert hand.get_total() == 55
 
-"""
+def test_does_nothing_when_island_is_with_dragon():
+    hand = init_hand(deck, [Card.DRAGON, Card.ISLAND])
+    assert hand.get_total() == 4
 
-it('does nothing when island is with dragon', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_DRAGON, Glossary::CARD_ISLAND])
-    expect(hand->getTotal())->toBe(4)
-})
+"""
 
 it('clears penalty from swamp with island', function (): void {
     hand = init_hand(this->deck, [Glossary::CARD_SWAMP, Glossary::CARD_ISLAND, Glossary::CARD_DWARVISH_INFANTRY])

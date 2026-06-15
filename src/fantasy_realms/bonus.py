@@ -57,6 +57,16 @@ class Bonus:
 
         return found
 
+    @staticmethod
+    def clears_penalty(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                card.clear_penalty()
+                found = True
+        return found
 
 """
 
@@ -109,21 +119,7 @@ class Bonus:
         return false
     }
 
-    public static function clearsPenalty(Hand hand, Card current, array params): bool
-    {
-        found = false
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(current)) {
-                continue
-            }
-            if (card->hasSuitAmong(params['suits'])) {
-                card->clearPenalty()
-                found = true
-            }
-        }
 
-        return found
-    }
 
     public static function clearsWordFromPenalty(Hand hand, Card current, array params): bool
     {
