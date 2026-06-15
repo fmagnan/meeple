@@ -78,6 +78,18 @@ class Bonus:
         current.add_bonus(int(params['value']))
         return found
 
+    @staticmethod
+    def with_both_cards(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        for card in params['cards']:
+            if not hand.has_card(card):
+                return False
+        for suit in params['suits']:
+            if not hand.has_suit(suit, current):
+                return False
+        current.add_bonus(int(params['value']))
+        return True
+
+
 """
 
     public static function addBaseStrengthAmong(Hand hand, Card current, array params): bool
@@ -232,22 +244,7 @@ class Bonus:
 
 
 
-    public static function withBothCards(Hand hand, Card current, array params): bool
-    {
-        foreach (params['cards'] as card) {
-            if (!hand->hasCard(card)) {
-                return false
-            }
-        }
-        foreach (params['suits'] as suit) {
-            if (!hand->hasSuit(suit, current)) {
-                return false
-            }
-        }
-        current->addBonus((int) params['value'])
 
-        return true
-    }
 
 
 

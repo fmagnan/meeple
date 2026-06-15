@@ -91,27 +91,26 @@ def test_add_points_when_unicorn_meets_beast_master():
     hand = init_hand(deck, [Card.UNICORN, Card.BEASTMASTER])
     assert hand.get_total() == 27
 
+def test_add_maximum_points_for_unicorn_with_princess():
+    hand = init_hand(deck, [Card.UNICORN, Card.PRINCESS])
+    assert hand.get_total() == 41
+
+def test_add_less_points_when_unicorn_has_no_princess_but_empress():
+    hand = init_hand(deck, [Card.UNICORN, Card.EMPRESS])
+    assert hand.get_total() == 34
+
+def test_does_nothing_when_magic_wand_and_shield_of_keth_are_together():
+    hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.MAGIC_WAND])
+    assert hand.get_total() == 5
+
+def test_adds_points_when_shield_of_keth_is_handled_by_a_leader():
+    hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.PRINCESS])
+    assert hand.get_total() == 21
+
+
 """
 
-it('adds maximum points for unicorn with princess', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_UNICORN, Glossary::CARD_PRINCESS])
-    expect(hand->getTotal())->toBe(41)
-})
 
-it('adds less points when unicorn has no princess but empress', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_UNICORN, Glossary::CARD_EMPRESS])
-    expect(hand->getTotal())->toBe(34)
-})
-
-it('does nothing when magic wand and shield of keth are together', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SHIELD_OF_KETH, Glossary::CARD_MAGIC_WAND])
-    expect(hand->getTotal())->toBe(5)
-})
-
-it('adds points when shield of keth is handled by a leader', function (): void {
-    hand = init_hand(this->deck, [Glossary::CARD_SHIELD_OF_KETH, Glossary::CARD_PRINCESS])
-    expect(hand->getTotal())->toBe(21)
-})
 
 it('combines when king has shield and sword of keth', function (): void {
     hand = init_hand(this->deck, [Glossary::CARD_SHIELD_OF_KETH, Glossary::CARD_KING, Glossary::CARD_SWORD_OF_KETH])
