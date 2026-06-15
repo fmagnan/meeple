@@ -114,9 +114,24 @@ class Bonus:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-        if card.has_penalty():
-            card.remove_word_from_penalty(params['word'])
+            if card.has_penalty():
+                card.remove_word_from_penalty(params['word'])
         return False
+
+    @staticmethod
+    def different_cards_in_same_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        count_suits = {}
+        for card in hand.cards:
+            if not count_suits.get(card.suit):
+                count_suits[str(card.suit)] = 1
+            else:
+                count_suits[str(card.suit)] += 1
+        for suit, count in count_suits.items():
+            if count >= int(params['cards']):
+                current.add_bonus(int(params['value']))
+                return True
+        return False
+
 
 
 """
@@ -160,25 +175,7 @@ class Bonus:
 
 
 
-    public static function differentCardsInSameSuit(Hand hand, Card current, array params): bool
-    {
-        countSuits = []
-        foreach (hand->getCards() as card) {
-            if (!isset(countSuits[card->getSuit()])) {
-                countSuits[card->getSuit()] = 1
-            } else {
-                countSuits[card->getSuit()]++
-            }
-        }
-        foreach (countSuits as count) {
-            if (count >= (int) params['cards']) {
-                current->addBonus((int) params['value'])
-                return true
-            }
-        }
 
-        return false
-    }
 
     public static function duplicate(Hand hand, Card current, array params): bool
     {

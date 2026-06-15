@@ -81,7 +81,7 @@ class Action(StrEnum):
     CHANGE_SUIT = 'change_suit'
     CLEARS_PENALTY = 'clears_penalty'
     CLEARS_WORD_FROM_PENALTY = 'clears_word_from_penalty'
-    DIFFERENT_CARDS_IN_SAME_SUIT = 'different_cardsin_same_suit'
+    DIFFERENT_CARDS_IN_SAME_SUIT = 'different_cards_in_same_suit'
     DUPLICATE = 'duplicate'
     EACH_ACTIVE_CARD_IS_FROM_DIFFERENT_SUIT = 'each_active_card_is_from_different_suit'
     FOR_EACH = 'for_each'
