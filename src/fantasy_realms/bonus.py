@@ -17,10 +17,6 @@ class Bonus:
         return conf['action']
 
     @staticmethod
-    def add_base_strength_among(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
-        return False
-
-    @staticmethod
     def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
         for card in hand.cards:
@@ -174,27 +170,19 @@ class Bonus:
             longest_run=current_run
         return len(longest_run)
 
-
+    @staticmethod
+    def add_base_strength_among(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        maximum_value = 0
+        for card in hand.cards:
+            if card.is_same_as(current):
+                continue
+            if not card.has_suit_among(params['suits']):
+                continue
+            if card.base_strength > maximum_value:
+                maximum_value = card.base_strength
+        current.add_bonus(maximum_value)
+        return False
 """
-
-    public static function addBaseStrengthAmong(Hand hand, Card current, array params): bool
-    {
-        maximumValue = 0
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(current)) {
-                continue
-            }
-            if (!card->hasSuitAmong(params['suits'])) {
-                continue
-            }
-            if (card->getBaseStrength() > maximumValue) {
-                maximumValue = card->getBaseStrength()
-            }
-        }
-        current->addBonus(maximumValue)
-
-        return false
-    }
 
     public static function duplicate(Hand hand, Card current, array params): bool
     {

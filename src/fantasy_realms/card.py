@@ -130,23 +130,10 @@ class Card:
         return this
     }
 
-    public static function fromConf(string name, array conf) : self
-    {
-        return new self(name, (int) conf['suit'], (int) conf['base_strength'], conf['bonus'] ?? [], conf['penalty'] ?? [])
-    }
-
     public static function fromDeck(string name, array deck) : self
     {
         return self::fromConf(name, deck[name])
     }
-
-    public function getBaseStrength(): int
-    {
-        return this->base_strength
-    }
-
-
-
 
     public function takeOnNameAndSuit(Card from) : self
     {

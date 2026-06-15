@@ -111,15 +111,7 @@ def test_combines_when_king_has_shield_and_sword_of_keth():
     hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.KING, Card.SWORD_OF_KETH])
     assert hand.get_total() == 99
 
-def test_gets_full_points_when_candle_has_bell_tower_and_book_of_changes_and_any_wizard():
-    hand = init_hand(deck, [Card.BEASTMASTER, Card.BELL_TOWER, Card.CANDLE])
-    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
-    assert hand.get_total() == 137
 
-def test_does_not_get_candle_bonus_without_a_wizard():
-    hand = init_hand(deck, [Card.SWORD_OF_KETH, Card.BELL_TOWER, Card.CANDLE])
-    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
-    assert hand.get_total() == 20
 
 def test_does_not_get_full_points_from_whirlwind_when_rainstorm_is_missing():
     hand = init_hand(deck, [Card.BLIZZARD, Card.GREAT_FLOOD, Card.WHIRLWIND])
@@ -157,6 +149,29 @@ def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_s
     hand = init_hand(deck, [Card.PROTECTION_RUNE, Card.WORLD_TREE])
     assert hand.get_total() == 3
 
+def test_gains_maximum_value_among_various_flood_cards_with_fountain_of_life():
+    hand = init_hand(deck, [Card.FOUNTAIN_OF_LIFE, Card.GREAT_FLOOD, Card.PROTECTION_RUNE, Card.WAR_DIRIGIBLE, Card.WORLD_TREE])
+    assert hand.get_total() == 93
+
+def test_gains_minimum_points_when_only_three_cards_are_in_run_with_gem_of_order():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.GEM_OF_ORDER, Card.QUEEN])
+    assert hand.get_total() == 28
+
+def test_can_change_suit_card_with_book_of_changes():
+    hand = init_hand(deck, [Card.DRAGON, Card.QUEEN])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.QUEEN, 'suit': Suit.WIZARD})
+    assert hand.get_total() == 39
+
+def test_gets_full_points_when_candle_has_bell_tower_and_book_of_changes_and_any_wizard():
+    hand = init_hand(deck, [Card.BEASTMASTER, Card.BELL_TOWER, Card.CANDLE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
+    assert hand.get_total() == 137
+
+def test_does_not_get_candle_bonus_without_a_wizard():
+    hand = init_hand(deck, [Card.SWORD_OF_KETH, Card.BELL_TOWER, Card.CANDLE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
+    assert hand.get_total() == 20
+
 def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_suit_cause_of_book_of_changes():
     hand = init_hand(deck, [Card.COLLECTOR, Card.WORLD_TREE])
     hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.COLLECTOR, 'suit': Suit.WEAPON})
@@ -167,39 +182,12 @@ def test_cannot_choose_any_card_with_fountain_of_life_and_only_artifacts():
     hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.PROTECTION_RUNE, 'suit': Suit.WILD})
     assert hand.get_total() == 76
 
+
 """
 
-it('gains maximum value among various flood cards with fountain of life', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_FOUNTAIN_OF_LIFE,
-        Glossary::CARD_GREAT_FLOOD,
-        Glossary::CARD_PROTECTION_RUNE,
-        Glossary::CARD_WAR_DIRIGIBLE,
-        Glossary::CARD_WORLD_TREE,
-    ])
-    expect(hand->getTotal())->toBe(93)
-})
 
-it('gains minimum points when only three cards are in run with gem of order', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_GEM_OF_ORDER,
-        Glossary::CARD_QUEEN,
-    ])
-    expect(hand->getTotal())->toBe(28)
-})
 
-it('can change suit card with book of changes', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_QUEEN,
-    ])
-    hand->addCard(Glossary::CARD_BOOK_OF_CHANGES, [
-        'card' => Glossary::CARD_QUEEN,
-        'suit' => Glossary::SUIT_WIZARD,
-    ])
-    expect(hand->getTotal())->toBe(39)
-})
+
 
 it('can add a last card with necromancer', function (): void {
     hand = init_hand(this->deck, [
