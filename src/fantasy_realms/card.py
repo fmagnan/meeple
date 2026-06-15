@@ -113,6 +113,8 @@ class Card:
             if word in self.penalty.get('cards', []):
                 self.penalty['cards'].remove(word)
 
+    def is_blanked(self):
+        return self.suit == Suit.NONE
 
 """
 
@@ -143,10 +145,7 @@ class Card:
         return this->base_strength
     }
 
-    public function isBlanked(): bool
-    {
-        return this->suit === Glossary::SUIT_NONE
-    }
+
 
 
     public function takeOnNameAndSuit(Card from) : self

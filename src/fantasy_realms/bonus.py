@@ -92,7 +92,7 @@ class Bonus:
     @staticmethod
     def change_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         for card in hand.cards:
-            if card.is_same_as(params['card']):
+            if not card.is_same_as(params['card']):
                 continue
             card.change_suit(params['suit'])
             return True
@@ -123,16 +123,26 @@ class Bonus:
         count_suits = {}
         for card in hand.cards:
             if not count_suits.get(card.suit):
-                count_suits[str(card.suit)] = 1
+                count_suits[card.suit] = 1
             else:
-                count_suits[str(card.suit)] += 1
+                count_suits[card.suit] += 1
         for suit, count in count_suits.items():
             if count >= int(params['cards']):
                 current.add_bonus(int(params['value']))
                 return True
         return False
 
-
+    @staticmethod
+    def each_active_card_is_from_different_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        suits = []
+        for card in hand.cards:
+            if card.is_blanked():
+                continue
+            if card.suit in suits:
+                return False
+            suits.append(card.suit)
+        current.add_bonus(int(params['value']))
+        return True
 
 """
 
@@ -173,10 +183,6 @@ class Bonus:
         return false
     }
 
-
-
-
-
     public static function duplicate(Hand hand, Card current, array params): bool
     {
         foreach (hand->getCards() as card) {
@@ -187,23 +193,6 @@ class Bonus:
         }
 
         return false
-    }
-
-    public static function eachActiveCardIsDifferentSuit(Hand hand, Card current, array params): bool
-    {
-        suits = []
-        foreach (hand->getCards() as card) {
-            if (card->isBlanked()) {
-                continue
-            }
-            if (in_array(card->getSuit(), suits, true)) {
-                return false
-            }
-            suits[] = card->getSuit()
-        }
-        current->addBonus((int) params['value'])
-
-        return true
     }
 
     public static function takeOneMoreCardAtEnd(Hand hand, Card current, array params): bool
@@ -237,14 +226,6 @@ class Bonus:
 
         return found
     }
-
-
-
-
-
-
-
-
 
     private static function getAction(array conf): string
     {

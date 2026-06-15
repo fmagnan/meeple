@@ -137,71 +137,36 @@ def test_gets_no_points_from_collector_when_all_cards_have_different_suits():
     hand = init_hand(deck, [Card.COLLECTOR, Card.RANGERS, Card.SWAMP, Card.DRAGON, Card.PRINCESS, Card.FORGE, Card.FOREST])
     assert hand.get_total() == 113
 
+def test_points_from_collector_when_three_cards_have_same_suit():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.BEASTMASTER, Card.HYDRA, Card.DRAGON, Card.UNICORN, Card.FORGE, Card.FOREST])
+    assert hand.get_total() == 156
 
+def test_gets_points_from_collector_when_four_cards_have_same_suit():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.BEASTMASTER, Card.HYDRA, Card.DRAGON, Card.UNICORN, Card.BASILISK, Card.FOREST])
+    assert hand.get_total() == 233
+
+def test_gets_points_from_collector_when_five_cards_have_same_suit():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.BEASTMASTER, Card.HYDRA, Card.DRAGON, Card.UNICORN, Card.BASILISK, Card.WARHORSE])
+    assert hand.get_total() == 267
+
+def test_gets_world_tree_bonus_if_each_active_card_has_a_different_suit():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.WORLD_TREE])
+    assert hand.get_total() == 59
+
+def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_suit():
+    hand = init_hand(deck, [Card.PROTECTION_RUNE, Card.WORLD_TREE])
+    assert hand.get_total() == 3
+
+def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_suit_cause_of_book_of_changes():
+    hand = init_hand(deck, [Card.COLLECTOR, Card.WORLD_TREE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.COLLECTOR, 'suit': Suit.WEAPON})
+    assert hand.get_total() == 12
 
 """
 
 
 
 
-it('gets points from collector when three cards have same suit', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_BEASTMASTER,
-        Glossary::CARD_HYDRA,
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_UNICORN,
-        Glossary::CARD_FORGE,
-        Glossary::CARD_FOREST,
-    ])
-    expect(hand->getTotal())->toBe(156)
-})
-
-it('gets points from collector when four cards have same suit', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BASILISK,
-        Glossary::CARD_BEASTMASTER,
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_FOREST,
-        Glossary::CARD_HYDRA,
-        Glossary::CARD_UNICORN,
-    ])
-    expect(hand->getTotal())->toBe(233)
-})
-
-it('gets maximum points from collector when five cards have same suit', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BASILISK,
-        Glossary::CARD_BEASTMASTER,
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_HYDRA,
-        Glossary::CARD_UNICORN,
-        Glossary::CARD_WARHORSE,
-    ])
-    expect(hand->getTotal())->toBe(267)
-})
-
-it('gets world tree bonus if each active card has a different suit', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_WORLD_TREE,
-    ])
-    expect(hand->getTotal())->toBe(59)
-})
-
-it('gets no points from world tree if at least two active card have same suit', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_COLLECTOR,
-        Glossary::CARD_WORLD_TREE,
-    ])
-    hand->addCard(Glossary::CARD_BOOK_OF_CHANGES, [
-        'card' => Glossary::CARD_COLLECTOR,
-        'suit' => Glossary::SUIT_WEAPON,
-    ])
-    expect(hand->getTotal())->toBe(12)
-})
 
 it('cannot choose any card with fountain of life and only artifacts', function (): void {
     hand = init_hand(this->deck, [
