@@ -1,6 +1,8 @@
+from typing import Any
+
 from fantasy_realms.glossary import Action, Card, Suit
 
-deck = {
+deck: dict[str, Any] = {
       Card.AIR_ELEMENTAL: {
             'suit' : Suit.WEATHER,
             'base_strength': 4,

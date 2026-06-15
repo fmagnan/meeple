@@ -31,7 +31,32 @@ class Bonus:
                 found = True
         return found
 
+    @staticmethod
+    def with_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.is_among(params['cards']):
+                current.add_bonus(int(params['value']))
+                found = True
 
+        return found
+
+    @staticmethod
+    def with_any_one_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.get_cards():
+            if card.is_same_as(current):
+                continue
+            if card.has_suit_among(params['suits']):
+                current.add_bonus(int(params['value']))
+                found = True
+
+        if found:
+            current.add_bonus(int(params['value']))
+
+        return found
 
 
 """
@@ -213,23 +238,7 @@ class Bonus:
         return $found;
     }
 
-    public static function withAnyOneSuit(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->hasSuitAmong($params['suits'])) {
-                $found = true;
-            }
-        }
-        if ($found) {
-            $current->addBonus((int) $params['value']);
-        }
 
-        return $found;
-    }
 
     public static function withBothCards(Hand $hand, Card $current, array $params): bool
     {
@@ -248,21 +257,7 @@ class Bonus:
         return true;
     }
 
-    public static function withCard(Hand $hand, Card $current, array $params): bool
-    {
-        $found = false;
-        foreach ($hand->getCards() as $card) {
-            if ($card->isSameAs($current)) {
-                continue;
-            }
-            if ($card->isAmong($params['cards'])) {
-                $current->addBonus((int) $params['value']);
-                $found = true;
-            }
-        }
 
-        return $found;
-    }
 
     public static function withCardAndEither(Hand $hand, Card $current, array $params): bool
     {

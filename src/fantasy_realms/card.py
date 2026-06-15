@@ -93,20 +93,18 @@ class Card:
 
     def add_bonus(self, value: int):
         self.value += value
+
+    def is_among(self, cards: list["Card|str"]) -> bool:
+        return self.name in cards
+
+    def blank(self):
+        self.base_strength = 0
+        self.value=0
+        self.bonus = {}
+        self.penalty = {}
+        self.name = ''
+        self.suit = Suit.NONE
 """
-{
-
-    public function blank(): self
-    {
-        $this->base_strength = 0;
-        $this->value = 0;
-        $this->bonus = [];
-        $this->penalty = [];
-        $this->name = '';
-        $this->suit = Glossary::SUIT_NONE;
-
-        return $this;
-    }
 
     public function changeSuit(int $suit): self
     {
@@ -149,10 +147,6 @@ class Card:
         return $this->base_strength;
     }
 
-
-
-
-
     public function getPenalty(): array
     {
         return $this->penalty;
@@ -163,28 +157,15 @@ class Card:
         return $this->suit;
     }
 
-
-
     public function hasPenalty(): bool
     {
         return !empty($this->penalty);
-    }
-
-
-
-    public function isAmong(array $cards): bool
-    {
-        return in_array($this->name, $cards, true);
     }
 
     public function isBlanked(): bool
     {
         return $this->suit === Glossary::SUIT_NONE;
     }
-
-
-
-
 
     public function removeWordFromPenalty(int|string $word): self
     {
@@ -209,7 +190,4 @@ class Card:
 
         return $this;
     }
-
-
-}
 """

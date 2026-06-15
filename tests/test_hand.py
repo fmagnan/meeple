@@ -4,7 +4,6 @@ from fantasy_realms.deck import deck
 from fantasy_realms.glossary import Card
 from fantasy_realms.hand import Hand
 
-
 def init_hand(deck: dict[str, Any], cards: list[Card]) -> Hand:
     hand :Hand = Hand(deck)
     for card in cards:
@@ -23,22 +22,20 @@ def test_neutralizes_penalty_when_dragon_is_with_a_a_wizard():
     hand = init_hand(deck, [Card.DRAGON, Card.ELEMENTAL_ENCHANTRESS])
     assert hand.get_total() == 35
 
+def test_gets_points_for_princess_with_elemental_enchantress():
+    hand = init_hand(deck, [Card.PRINCESS, Card.ELEMENTAL_ENCHANTRESS])
+    assert hand.get_total() == 15
+
+def test_cancels_lightning_points_from_princess():
+    hand = init_hand(deck, [Card.PRINCESS, Card.LIGHTNING])
+    assert hand.get_total() == 13
+
+def test_gets_lightning_points_with_rainstorm():
+    hand = init_hand(deck, [Card.RAINSTORM, Card.LIGHTNING])
+    assert hand.get_total() == 49
+
 """
 
-it('gets points for princess with elemental enchantress', function (): void {
-    $hand = init_hand($this->deck, [Glossary::CARD_PRINCESS, Glossary::CARD_ELEMENTAL_ENCHANTRESS]);
-    expect($hand->getTotal())->toBe(15);
-});
-
-it('cancels lightning points from princess', function (): void {
-    $hand = init_hand($this->deck, [Glossary::CARD_PRINCESS, Glossary::CARD_LIGHTNING]);
-    expect($hand->getTotal())->toBe(13);
-});
-
-it('gets lightning points with rainstorm', function (): void {
-    $hand = init_hand($this->deck, [Glossary::CARD_RAINSTORM, Glossary::CARD_LIGHTNING]);
-    expect($hand->getTotal())->toBe(49);
-});
 
 it('gets points from princess and loses points from empress when they are together', function (): void {
     $hand = init_hand($this->deck, [Glossary::CARD_PRINCESS, Glossary::CARD_EMPRESS]);
