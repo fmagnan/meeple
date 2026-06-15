@@ -23,7 +23,7 @@ class Penalty:
     @staticmethod
     def unless_at_least(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -38,7 +38,7 @@ class Penalty:
         target_suits = params.get('targets', {}).get('suits', [])
         excludes = params.get('excludes', [])
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if len(target_suits) == 0 or card.has_suit_among(target_suits):
@@ -53,7 +53,7 @@ class Penalty:
     @staticmethod
     def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -64,7 +64,7 @@ class Penalty:
     @staticmethod
     def blanked_unless(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -76,7 +76,7 @@ class Penalty:
     @staticmethod
     def with_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.is_among(params['cards']):

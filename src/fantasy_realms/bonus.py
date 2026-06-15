@@ -23,7 +23,7 @@ class Bonus:
     @staticmethod
     def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -34,7 +34,7 @@ class Bonus:
     @staticmethod
     def with_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.is_among(params['cards']):
@@ -46,7 +46,7 @@ class Bonus:
     @staticmethod
     def with_any_one_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -59,7 +59,7 @@ class Bonus:
     @staticmethod
     def clears_penalty(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found = False
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -70,7 +70,7 @@ class Bonus:
     @staticmethod
     def if_no(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         found=True
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_suit_among(params['suits']):
@@ -91,11 +91,31 @@ class Bonus:
 
     @staticmethod
     def change_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        for card in hand.get_cards():
+        for card in hand.cards:
             if card.is_same_as(params['card']):
                 continue
             card.change_suit(params['suit'])
             return True
+        return False
+
+    @staticmethod
+    def with_card_and_either(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        for card in params['cards']:
+            if not hand.has_card(card):
+                return False
+        for card in params['either']:
+            if hand.has_card(card):
+                current.add_bonus(int(params['value']))
+                return True
+        return False
+
+    @staticmethod
+    def clears_word_from_penalty(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        for card in hand.cards:
+            if card.is_same_as(current):
+                continue
+        if card.has_penalty():
+            card.remove_word_from_penalty(params['word'])
         return False
 
 
@@ -139,22 +159,6 @@ class Bonus:
     }
 
 
-
-
-
-    public static function clearsWordFromPenalty(Hand hand, Card current, array params): bool
-    {
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(current)) {
-                continue
-            }
-            if (card->hasPenalty()) {
-                card->removeWordFromPenalty(params['word'])
-            }
-        }
-
-        return false
-    }
 
     public static function differentCardsInSameSuit(Hand hand, Card current, array params): bool
     {
@@ -205,10 +209,6 @@ class Bonus:
         return true
     }
 
-
-
-
-
     public static function takeOneMoreCardAtEnd(Hand hand, Card current, array params): bool
     {
         hand->addCard(params['card'])
@@ -247,22 +247,7 @@ class Bonus:
 
 
 
-    public static function withCardAndEither(Hand hand, Card current, array params): bool
-    {
-        foreach (params['cards'] as card) {
-            if (!hand->hasCard(card)) {
-                return false
-            }
-        }
-        foreach (params['either'] as card) {
-            if (hand->hasCard(card)) {
-                current->addBonus((int) params['value'])
-                return true
-            }
-        }
 
-        return false
-    }
 
     private static function getAction(array conf): string
     {

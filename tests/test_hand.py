@@ -116,54 +116,28 @@ def test_gets_full_points_when_candle_has_bell_tower_and_book_of_changes_and_any
     hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
     assert hand.get_total() == 137
 
+def test_does_not_get_candle_bonus_without_a_wizard():
+    hand = init_hand(deck, [Card.SWORD_OF_KETH, Card.BELL_TOWER, Card.CANDLE])
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.CANDLE, 'suit': Suit.WEAPON})
+    assert hand.get_total() == 20
+
+def test_does_not_get_full_points_from_whirlwind_when_rainstorm_is_missing():
+    hand = init_hand(deck, [Card.BLIZZARD, Card.GREAT_FLOOD, Card.WHIRLWIND])
+    assert hand.get_total() == 43
+
+def test_gets_whirlwind_bonus_when_rainstorm_and_blizzard_are_together():
+    hand = init_hand(deck, [Card.BLIZZARD, Card.RAINSTORM, Card.WHIRLWIND])
+    assert hand.get_total() == 91
+
+def test_cancels_swamp_penalty_with_rangers_bonus():
+    hand = init_hand(deck, [Card.SWAMP, Card.RANGERS])
+    assert hand.get_total() == 23
+
+
+
 """
 
 
-
-
-it('gets full points when candle has bell tower, book of changes and any wizard', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BEASTMASTER,
-        Glossary::CARD_BELL_TOWER,
-        Glossary::CARD_CANDLE,
-    ])
-    hand->addCard(Glossary::CARD_BOOK_OF_CHANGES, [
-        'card' => Glossary::CARD_CANDLE,
-        'suit' => Glossary::SUIT_WEAPON,
-    ])
-    expect(hand->getTotal())->toBe(137)
-})
-
-it('does not get candle bonus without a wizard', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BELL_TOWER,
-        Glossary::CARD_CANDLE,
-        Glossary::CARD_SWORD_OF_KETH,
-    ])
-    hand->addCard(Glossary::CARD_BOOK_OF_CHANGES, [
-        'card' => Glossary::CARD_CANDLE,
-        'suit' => Glossary::SUIT_WEAPON,
-    ])
-    expect(hand->getTotal())->toBe(20)
-})
-
-it('does not get full points from whirlwind when rainstorm is missing', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BLIZZARD,
-        Glossary::CARD_GREAT_FLOOD,
-        Glossary::CARD_WHIRLWIND,
-    ])
-    expect(hand->getTotal())->toBe(43)
-})
-
-it('gets whirlwind bonus when rainstorm and blizzard are together', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_BLIZZARD,
-        Glossary::CARD_RAINSTORM,
-        Glossary::CARD_WHIRLWIND,
-    ])
-    expect(hand->getTotal())->toBe(91)
-})
 
 it('cancels swamp penalty with rangers bonus', function (): void {
     hand = init_hand(this->deck, [

@@ -102,6 +102,17 @@ class Card:
     def change_suit(self, suit :Suit):
         self.suit = suit
 
+    def has_penalty(self) -> bool:
+        return len(self.penalty) > 0
+
+    def remove_word_from_penalty(self, word: str|int):
+        if isinstance(word, int):
+            if word in self.penalty.get('suits', []):
+                self.penalty['suits'].remove(word)
+        else:
+            if word in self.penalty.get('cards', []):
+                self.penalty['cards'].remove(word)
+
 
 """
 
@@ -132,39 +143,9 @@ class Card:
         return this->base_strength
     }
 
-    public function getPenalty(): array
-    {
-        return this->penalty
-    }
-
-    public function getSuit(): int
-    {
-        return this->suit
-    }
-
-    public function hasPenalty(): bool
-    {
-        return !empty(this->penalty)
-    }
-
     public function isBlanked(): bool
     {
         return this->suit === Glossary::SUIT_NONE
-    }
-
-    public function removeWordFromPenalty(int|string word): self
-    {
-        if (is_int(word)) {
-            if ((key = array_search(word, this->penalty['suits'])) !== false) {
-                unset(this->penalty['suits'][key])
-            }
-        } else {
-            if ((key = array_search(word, this->penalty['cards'])) !== false) {
-                unset(this->penalty['cards'][key])
-            }
-        }
-
-        return this
     }
 
 

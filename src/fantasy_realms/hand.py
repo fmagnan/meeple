@@ -30,9 +30,6 @@ class Hand:
 
         return total
 
-    def get_cards(self) -> list[Card]:
-        return self.cards
-
     def has_card(self, name: str) -> bool:
         for card in self.cards:
             if name == card.name:
