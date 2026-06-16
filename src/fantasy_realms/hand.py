@@ -3,9 +3,10 @@ from typing import Any
 from fantasy_realms.card import Card
 from fantasy_realms.glossary import Name
 
+
 class Hand:
-    def __init__(self, deck: dict[str, Any]):
-        self.deck: dict[str, Any] = deck
+    def __init__(self, deck :dict[str, Any]):
+        self.deck :dict[str, Any] = deck
         self.cards :list[Card] = []
 
     def add_card(self, name: Name, params: dict[str, Any]={}):
