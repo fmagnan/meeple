@@ -195,36 +195,20 @@ class Bonus:
     def take_one_more_card_at_the_end(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         hand.add_card(params['card'])
         return True
-"""
 
+    @staticmethod
+    def take_on_name_and_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        current.take_on_name_and_suit(params['card'])
+        return True
 
-    public static function takeOnNameAndSuit(Hand hand, Card current, array params): bool
-    {
-        current->takeOnNameAndSuit(params['card'])
-
-        return true
-    }
-
-    public static function withAnyOneCard(Hand hand, Card current, array params): bool
-    {
-        found = false
-        foreach (hand->getCards() as card) {
-            if (card->isSameAs(current)) {
+    @staticmethod
+    def with_any_one_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+        found = False
+        for card in hand.cards:
+            if card.is_same_as(current):
                 continue
-            }
-            if (card->isAmong(params['cards'])) {
-                found = true
-            }
-        }
-        if (found) {
-            current->addBonus((int) params['value'])
-        }
-
+            if card.is_among(params['cards']):
+                found=True
+        if found:
+            current.add_bonus(int(params['value']))
         return found
-    }
-
-    private static function getAction(array conf): string
-    {
-        return conf['action']
-
-"""

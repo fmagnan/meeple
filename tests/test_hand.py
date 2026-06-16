@@ -1,5 +1,6 @@
 from typing import Any
 
+from fantasy_realms.card import Card as CardClass
 from fantasy_realms.deck import deck
 from fantasy_realms.glossary import Card, Suit
 from fantasy_realms.hand import Hand
@@ -111,8 +112,6 @@ def test_combines_when_king_has_shield_and_sword_of_keth():
     hand = init_hand(deck, [Card.SHIELD_OF_KETH, Card.KING, Card.SWORD_OF_KETH])
     assert hand.get_total() == 99
 
-
-
 def test_does_not_get_full_points_from_whirlwind_when_rainstorm_is_missing():
     hand = init_hand(deck, [Card.BLIZZARD, Card.GREAT_FLOOD, Card.WHIRLWIND])
     assert hand.get_total() == 43
@@ -187,46 +186,25 @@ def test_add_a_last_card_with_necromancer():
     hand.add_card(Card.NECROMANCER, { 'card': Card.UNICORN })
     assert hand.get_total() == 46
 
-"""
+def test_can_have_two_times_the_same_card_because_of_the_doppelganger():
+    hand = init_hand(deck, [Card.DRAGON, Card.WARLOCK_LORD])
+    hand.add_card(Card.DOPPELGANGER, { 'card': Card.DRAGON })
+    assert hand.get_total() == 85
 
+def test_can_get_penalties_twice_if_doppelganger_is_misused():
+    hand = init_hand(deck, [Card.DRAGON, Card.CANDLE])
+    hand.add_card(Card.DOPPELGANGER, { 'card': Card.DRAGON })
+    assert hand.get_total() == -18
 
+def test_can_get_bonuses_from_shapeshifter():
+    hand = init_hand(deck, [Card.SWORD_OF_KETH, Card.PRINCESS])
+    hand.add_card(Card.SHAPESHIFTER, { 'card': CardClass.from_conf(Card.SHIELD_OF_KETH, deck[Card.SHIELD_OF_KETH]) })
+    assert hand.get_total() == 49
 
+def test_elven_long_bow_fits_well_with_elven_archers():
+    hand = init_hand(deck, [Card.ELVEN_LONGBOW, Card.ELVEN_ARCHERS])
+    assert hand.get_total() == 48
 
-
-
-
-it('can have two times the same card because of the doppelganger', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_WARLOCK_LORD,
-    ])
-    hand->addCard(Glossary::CARD_DOPPELGANGER, [
-        'card' => Glossary::CARD_DRAGON
-    ])
-    expect(hand->getTotal())->toBe(85)
-})
-
-it('can get penalties twice if doppelganger is misused', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_DRAGON,
-        Glossary::CARD_CANDLE,
-    ])
-    hand->addCard(Glossary::CARD_DOPPELGANGER, [
-        'card' => Glossary::CARD_DRAGON
-    ])
-    expect(hand->getTotal())->toBe(-18)
-})
-
-it('can get bonuses from shapeshifter', function (): void {
-    hand = init_hand(this->deck, [
-        Glossary::CARD_SWORD_OF_KETH,
-        Glossary::CARD_PRINCESS,
-    ])
-    hand->addCard(Glossary::CARD_SHAPESHIFTER, [
-        'card' => Card::fromDeck(Glossary::CARD_SHIELD_OF_KETH, this->deck),
-    ])
-    expect(hand->getTotal())->toBe(49)
-})
-
-
-"""
+def test_princess_cannot_handle_elven_long_bow():
+    hand = init_hand(deck, [Card.ELVEN_LONGBOW, Card.PRINCESS])
+    assert hand.get_total() == 5

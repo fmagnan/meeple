@@ -1,9 +1,9 @@
 from fantasy_realms.card import Card
-
+from typing import Any
 
 class Hand:
-    def __init__(self, deck):
-        self.deck = deck
+    def __init__(self, deck: dict[str, Any]):
+        self.deck: dict[str, Any] = deck
         self.cards :list[Card] = []
 
     def add_card(self, name :str, params={}):

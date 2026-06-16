@@ -19,7 +19,7 @@ class Card:
         self.value :int= base_strength
 
     @classmethod
-    def from_conf(cls, name: str, conf: dict[str, Any]={}):
+    def from_conf(cls, name: str, conf: dict[str, Any]={}) -> "Card":
         return cls(name, int(conf.get('suit', 0)), int(conf.get('base_strength', 0)), conf.get('bonus', {}), conf.get('penalty', {}))
 
     def is_prior(self, bonus: dict[str, Any]):
@@ -124,20 +124,6 @@ class Card:
         self.penalty = origin.penalty
         self.suit = origin.suit
 
-"""
-
-
-
-    public static function fromDeck(string name, array deck) : self
-    {
-        return self::fromConf(name, deck[name])
-    }
-
-    public function takeOnNameAndSuit(Card from) : self
-    {
-        this->name = from->getName()
-        this->suit = from->getSuit()
-
-        return this
-    }
-"""
+    def take_on_name_and_suit(self, origin :"Card"):
+        self.name = origin.name
+        self.suit = origin.suit
