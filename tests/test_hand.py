@@ -158,7 +158,7 @@ def test_gains_minimum_points_when_only_three_cards_are_in_run_with_gem_of_order
 
 def test_can_change_suit_card_with_book_of_changes():
     hand = init_hand(deck, [Card.DRAGON, Card.QUEEN])
-    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.QUEEN, 'suit': Suit.WIZARD})
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': CardClass.from_conf(Card.QUEEN, deck[Card.QUEEN]), 'suit': Suit.WIZARD})
     assert hand.get_total() == 39
 
 def test_gets_full_points_when_candle_has_bell_tower_and_book_of_changes_and_any_wizard():
@@ -178,7 +178,7 @@ def test_gets_no_points_from_world_tree_if_at_least_two_active_cards_have_same_s
 
 def test_cannot_choose_any_card_with_fountain_of_life_and_only_artifacts():
     hand = init_hand(deck, [Card.FOUNTAIN_OF_LIFE, Card.GEM_OF_ORDER, Card.PROTECTION_RUNE, Card.SHIELD_OF_KETH, Card.WORLD_TREE])
-    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': Card.PROTECTION_RUNE, 'suit': Suit.WILD})
+    hand.add_card(Card.BOOK_OF_CHANGES, { 'card': CardClass.from_conf(Card.PROTECTION_RUNE, deck[Card.PROTECTION_RUNE]), 'suit': Suit.WILD})
     assert hand.get_total() == 76
 
 def test_add_a_last_card_with_necromancer():
@@ -188,12 +188,12 @@ def test_add_a_last_card_with_necromancer():
 
 def test_can_have_two_times_the_same_card_because_of_the_doppelganger():
     hand = init_hand(deck, [Card.DRAGON, Card.WARLOCK_LORD])
-    hand.add_card(Card.DOPPELGANGER, { 'card': Card.DRAGON })
+    hand.add_card(Card.DOPPELGANGER, { 'card': CardClass.from_conf(Card.DRAGON, deck[Card.DRAGON]) })
     assert hand.get_total() == 85
 
 def test_can_get_penalties_twice_if_doppelganger_is_misused():
     hand = init_hand(deck, [Card.DRAGON, Card.CANDLE])
-    hand.add_card(Card.DOPPELGANGER, { 'card': Card.DRAGON })
+    hand.add_card(Card.DOPPELGANGER, { 'card': CardClass.from_conf(Card.DRAGON, deck[Card.DRAGON]) })
     assert hand.get_total() == -18
 
 def test_can_get_bonuses_from_shapeshifter():

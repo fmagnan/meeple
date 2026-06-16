@@ -74,10 +74,8 @@ class Card:
     def has_suit_among(self, suits :list[Suit]) -> bool:
         return self.suit in suits
 
-    def is_same_as(self, card: "Card|str") -> bool:
-        if isinstance(card, Card):
-            return card.name == self.name
-        return card == self.name
+    def is_same_as(self, card: "Card") -> bool:
+        return card.name == self.name
 
     def substract_penalty(self, penalty_amount :int) -> None:
         self.value -= penalty_amount
@@ -85,7 +83,7 @@ class Card:
     def add_bonus(self, value: int):
         self.value += value
 
-    def is_among(self, cards: list["Card|str"]) -> bool:
+    def is_among(self, cards: list["Card"]) -> bool:
         return self.name in cards
 
     def blank(self):
@@ -105,13 +103,10 @@ class Card:
     def has_penalty(self) -> bool:
         return len(self.penalty) > 0
 
-    def remove_word_from_penalty(self, word: str|int):
-        if isinstance(word, int):
-            if word in self.penalty.get('suits', []):
-                self.penalty['suits'].remove(word)
-        else:
-            if word in self.penalty.get('cards', []):
-                self.penalty['cards'].remove(word)
+    def remove_word_from_penalty(self, word: int):
+        if not word in self.penalty.get('suits', []):
+            return
+        self.penalty['suits'].remove(word)
 
     def is_blanked(self):
         return self.suit == Suit.NONE
