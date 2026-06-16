@@ -1,9 +1,9 @@
 from typing import Any
 
-from fantasy_realms.glossary import Action, Card, Suit
+from fantasy_realms.glossary import Action, Name, Suit
 
 deck: dict[str, Any] = {
-      Card.AIR_ELEMENTAL: {
+      Name.AIR_ELEMENTAL: {
             'suit' : Suit.WEATHER,
             'base_strength': 4,
             'bonus': {
@@ -14,7 +14,7 @@ deck: dict[str, Any] = {
                 ]
             }
       },
-       Card.BASILISK: {
+       Name.BASILISK: {
             'suit': Suit.BEAST,
             'base_strength': 35,
             'penalty': {
@@ -28,7 +28,7 @@ deck: dict[str, Any] = {
                 }
             }
         },
-        Card.BEASTMASTER: {
+        Name.BEASTMASTER: {
             'suit': Suit.WIZARD,
             'base_strength': 9,
             'bonus': {
@@ -49,7 +49,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.BELL_TOWER: {
+        Name.BELL_TOWER: {
             'suit': Suit.LAND,
             'base_strength': 8,
             'bonus': {
@@ -60,7 +60,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.BLIZZARD: {
+        Name.BLIZZARD: {
             'suit': Suit.WEATHER,
             'base_strength': 30,
             'penalty': {
@@ -86,29 +86,29 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.BOOK_OF_CHANGES: {
+        Name.BOOK_OF_CHANGES: {
             'suit': Suit.ARTIFACT,
             'base_strength': 3,
             'bonus': {
                 'action': Action.CHANGE_SUIT
             }
         },
-        Card.CANDLE: {
+        Name.CANDLE: {
             'suit': Suit.FLAME,
             'base_strength': 2,
             'bonus': {
                 'action': Action.WITH_BOTH_CARDS,
                 'value': 100,
                 'cards': [
-                    Card.BELL_TOWER,
-                    Card.BOOK_OF_CHANGES,
+                    Name.BELL_TOWER,
+                    Name.BOOK_OF_CHANGES,
                 ],
                 'suits': [
                     Suit.WIZARD
                 ]
             }
         },
-        Card.CELESTIAL_KNIGHTS: {
+        Name.CELESTIAL_KNIGHTS: {
             'suit': Suit.ARMY,
             'base_strength': 20,
             'penalty': {
@@ -119,7 +119,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.COLLECTOR: {
+        Name.COLLECTOR: {
             'suit': Suit.WIZARD,
             'base_strength': 7,
             'bonus': {
@@ -142,14 +142,14 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.DOPPELGANGER: {
+        Name.DOPPELGANGER: {
             'suit': Suit.WILD,
             'base_strength': 0,
             'bonus': {
                 'action': Action.DUPLICATE
             }
         },
-        Card.DRAGON: {
+        Name.DRAGON: {
             'suit': Suit.BEAST,
             'base_strength': 30,
             'penalty': {
@@ -160,7 +160,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.DWARVISH_INFANTRY: {
+        Name.DWARVISH_INFANTRY: {
             'suit': Suit.ARMY,
             'base_strength': 15,
             'penalty': {
@@ -171,7 +171,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.EARTH_ELEMENTAL: {
+        Name.EARTH_ELEMENTAL: {
             'suit': Suit.LAND,
             'base_strength': 4,
             'bonus': {
@@ -182,7 +182,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.ELEMENTAL_ENCHANTRESS: {
+        Name.ELEMENTAL_ENCHANTRESS: {
             'suit': Suit.WIZARD,
             'base_strength': 5,
             'bonus': {
@@ -196,7 +196,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.ELVEN_ARCHERS: {
+        Name.ELVEN_ARCHERS: {
             'suit': Suit.ARMY,
             'base_strength': 10,
             'bonus': {
@@ -207,20 +207,20 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.ELVEN_LONGBOW: {
+        Name.ELVEN_LONGBOW: {
             'suit': Suit.WEAPON,
             'base_strength': 3,
             'bonus': {
                 'action': Action.WITH_ANY_ONE_CARD,
                 'value': 30,
                 'cards': [
-                    Card.ELVEN_ARCHERS,
-                    Card.WARLORD,
-                    Card.BEASTMASTER
+                    Name.ELVEN_ARCHERS,
+                    Name.WARLORD,
+                    Name.BEASTMASTER
                 ]
             },
         },
-        Card.EMPRESS: {
+        Name.EMPRESS: {
             'suit': Suit.LEADER,
             'base_strength': 10,
             'bonus': {
@@ -238,7 +238,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.FIRE_ELEMENTAL: {
+        Name.FIRE_ELEMENTAL: {
             'suit': Suit.FLAME,
             'base_strength': 4,
             'bonus': {
@@ -249,7 +249,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.FOREST: {
+        Name.FOREST: {
             'suit': Suit.LAND,
             'base_strength': 7,
             'bonus': {
@@ -259,11 +259,11 @@ deck: dict[str, Any] = {
                     Suit.BEAST
                 ],
                 'cards': [
-                    Card.ELVEN_ARCHERS
+                    Name.ELVEN_ARCHERS
                 ]
             }
         },
-        Card.FORGE: {
+        Name.FORGE: {
             'suit': Suit.FLAME,
             'base_strength': 9,
             'bonus': {
@@ -275,7 +275,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.FOUNTAIN_OF_LIFE: {
+        Name.FOUNTAIN_OF_LIFE: {
             'suit': Suit.FLOOD,
             'base_strength': 1,
             'bonus': {
@@ -289,7 +289,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.GEM_OF_ORDER: {
+        Name.GEM_OF_ORDER: {
             'suit': Suit.ARTIFACT,
             'base_strength': 5,
             'bonus': {
@@ -322,7 +322,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.GREAT_FLOOD: {
+        Name.GREAT_FLOOD: {
             'suit': Suit.FLOOD,
             'base_strength': 32,
             'penalty': {
@@ -336,13 +336,13 @@ deck: dict[str, Any] = {
                 },
                 'excludes': {
                     'cards': [
-                        Card.MOUNTAIN,
-                       Card.LIGHTNING
+                        Name.MOUNTAIN,
+                       Name.LIGHTNING
                     ]
                 }
             }
         },
-        Card.HYDRA: {
+        Name.HYDRA: {
             'suit': Suit.BEAST,
             'base_strength': 12,
             'bonus': {
@@ -350,11 +350,11 @@ deck: dict[str, Any] = {
                 'value': 28,
                 'cards': [
 
-                             Card.SWAMP
+                             Name.SWAMP
                 ]
             },
         },
-        Card.KING: {
+        Name.KING: {
             'suit': Suit.LEADER,
             'base_strength': 8,
             'bonus': {
@@ -366,7 +366,7 @@ deck: dict[str, Any] = {
                             Suit.ARMY
                         ],
                         'cards': [
-                            Card.QUEEN
+                            Name.QUEEN
                         ]
                     },
                     {
@@ -379,7 +379,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.ISLAND: {
+        Name.ISLAND: {
             'suit': Suit.FLOOD,
             'base_strength': 14,
             'bonus': {
@@ -390,7 +390,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.LIGHT_CALVARY: {
+        Name.LIGHT_CALVARY: {
             'suit': Suit.ARMY,
             'base_strength': 17,
             'penalty': {
@@ -401,18 +401,18 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.LIGHTNING: {
+        Name.LIGHTNING: {
             'suit': Suit.FLAME,
             'base_strength': 11,
             'bonus': {
                 'action': Action.WITH_CARD,
                 'value': 30,
                 'cards': [
-                    Card.RAINSTORM
+                    Name.RAINSTORM
                 ]
             },
         },
-        Card.MAGIC_WAND: {
+        Name.MAGIC_WAND: {
             'suit': Suit.WEAPON,
             'base_strength': 1,
             'bonus': {
@@ -423,7 +423,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.MIRAGE: {
+        Name.MIRAGE: {
             'suit': Suit.WILD,
             'base_strength': 0,
             'bonus': {
@@ -437,7 +437,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.MOUNTAIN: {
+        Name.MOUNTAIN: {
             'suit': Suit.LAND,
             'base_strength': 9,
             'bonus': {
@@ -446,8 +446,8 @@ deck: dict[str, Any] = {
                         'action': Action.WITH_BOTH_CARDS,
                         'value': 50,
                         'cards': [
-                            Card.SMOKE,
-                            Card.WILDFIRE
+                            Name.SMOKE,
+                            Name.WILDFIRE
                         ]
                     },
                     {
@@ -459,7 +459,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.NECROMANCER: {
+        Name.NECROMANCER: {
             'suit': Suit.WIZARD,
             'base_strength': 3,
             'bonus': {
@@ -472,7 +472,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.PRINCESS: {
+        Name.PRINCESS: {
             'suit': Suit.LEADER,
             'base_strength': 2,
             'bonus': {
@@ -485,7 +485,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.PROTECTION_RUNE: {
+        Name.PROTECTION_RUNE: {
             'suit': Suit.ARTIFACT,
             'base_strength': 1,
             'bonus': {
@@ -505,7 +505,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.QUEEN: {
+        Name.QUEEN: {
             'suit': Suit.LEADER,
             'base_strength': 6,
             'bonus': {
@@ -517,7 +517,7 @@ deck: dict[str, Any] = {
                             Suit.ARMY
                 ],
                         'cards': [
-                            Card.KING
+                            Name.KING
                 ]
                     },
                     {
@@ -530,7 +530,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.RAINSTORM: {
+        Name.RAINSTORM: {
             'suit': Suit.WEATHER,
             'base_strength': 8,
             'bonus': {
@@ -549,12 +549,12 @@ deck: dict[str, Any] = {
                 },
                 'excludes': {
                     'cards': [
-                        Card.LIGHTNING
+                        Name.LIGHTNING
                     ]
                 }
             }
         },
-        Card.RANGERS: {
+        Name.RANGERS: {
             'suit': Suit.ARMY,
             'base_strength': 5,
             'bonus': {
@@ -573,7 +573,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.SHAPESHIFTER: {
+        Name.SHAPESHIFTER: {
             'suit': Suit.WILD,
             'base_strength': 0,
             'bonus': {
@@ -587,7 +587,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.SHIELD_OF_KETH: {
+        Name.SHIELD_OF_KETH: {
             'suit': Suit.ARTIFACT,
             'base_strength': 4,
             'bonus': {
@@ -599,7 +599,7 @@ deck: dict[str, Any] = {
                             Suit.LEADER
                         ],
                         'cards': [
-                            Card.SWORD_OF_KETH
+                            Name.SWORD_OF_KETH
                         ]
                     },
                     {
@@ -612,7 +612,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.SMOKE: {
+        Name.SMOKE: {
             'suit': Suit.WEATHER,
             'base_strength': 27,
             'penalty': {
@@ -622,7 +622,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.SWAMP: {
+        Name.SWAMP: {
             'suit': Suit.FLOOD,
             'base_strength': 18,
             'penalty': {
@@ -634,7 +634,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.SWORD_OF_KETH: {
+        Name.SWORD_OF_KETH: {
             'suit': Suit.WEAPON,
             'base_strength': 7,
             'bonus': {
@@ -646,7 +646,7 @@ deck: dict[str, Any] = {
                             Suit.LEADER
                         ],
                         'cards': [
-                            Card.SHIELD_OF_KETH
+                            Name.SHIELD_OF_KETH
                         ]
                     },
                     {
@@ -659,7 +659,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.UNDERGROUND_CAVERNS: {
+        Name.UNDERGROUND_CAVERNS: {
             'suit': Suit.LAND,
             'base_strength': 6,
             'bonus': {
@@ -668,8 +668,8 @@ deck: dict[str, Any] = {
                         'action': Action.WITH_CARD,
                         'value': 25,
                         'cards': [
-                            Card.DRAGON,
-                            Card.DWARVISH_INFANTRY
+                            Name.DRAGON,
+                            Name.DWARVISH_INFANTRY
                         ]
                     },
                     {
@@ -681,7 +681,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.UNICORN: {
+        Name.UNICORN: {
             'suit': Suit.BEAST,
             'base_strength': 9,
             'bonus': {
@@ -690,22 +690,22 @@ deck: dict[str, Any] = {
                         'action': Action.WITH_CARD,
                         'value': 30,
                         'cards': [
-                            Card.PRINCESS
+                            Name.PRINCESS
                         ]
                     },
                     {
                         'action': Action.WITH_CARD,
                         'value': 15,
                         'cards': [
-                            Card.ELEMENTAL_ENCHANTRESS,
-                            Card.EMPRESS,
-                            Card.QUEEN,
+                            Name.ELEMENTAL_ENCHANTRESS,
+                            Name.EMPRESS,
+                            Name.QUEEN,
                         ]
                     }
                 ]
             }
         },
-        Card.WAR_DIRIGIBLE: {
+        Name.WAR_DIRIGIBLE: {
             'suit': Suit.WEAPON,
             'base_strength': 25,
             'penalty': [
@@ -723,7 +723,7 @@ deck: dict[str, Any] = {
                 },
             ]
         },
-        Card.WARHORSE: {
+        Name.WARHORSE: {
             'suit': Suit.BEAST,
             'base_strength': 6,
             'bonus': {
@@ -735,7 +735,7 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.WARLOCK_LORD: {
+        Name.WARLOCK_LORD: {
             'suit': Suit.WIZARD,
             'base_strength': 25,
             'penalty': {
@@ -747,7 +747,7 @@ deck: dict[str, Any] = {
                 ]
             },
         },
-        Card.WARSHIP: {
+        Name.WARSHIP: {
             'suit': Suit.WEAPON,
             'base_strength': 23,
             'bonus': {
@@ -764,7 +764,7 @@ deck: dict[str, Any] = {
                 ],
             }
         },
-        Card.WATER_ELEMENTAL: {
+        Name.WATER_ELEMENTAL: {
             'suit': Suit.FLOOD,
             'base_strength': 4,
             'bonus': {
@@ -775,22 +775,22 @@ deck: dict[str, Any] = {
                 ]
             }
         },
-        Card.WHIRLWIND: {
+        Name.WHIRLWIND: {
             'suit': Suit.WEATHER,
             'base_strength': 13,
             'bonus': {
                 'action': Action.WITH_CARD_AND_EITHER,
                 'value': 40,
                 'cards': [
-                    Card.RAINSTORM
+                    Name.RAINSTORM
                 ],
                 'either': [
-                    Card.BLIZZARD,
-                    Card.GREAT_FLOOD
+                    Name.BLIZZARD,
+                    Name.GREAT_FLOOD
                 ]
             }
         },
-        Card.WILDFIRE: {
+        Name.WILDFIRE: {
             'suit': Suit.FLAME,
             'base_strength': 40,
             'penalty': {
@@ -805,16 +805,16 @@ deck: dict[str, Any] = {
                         Suit.WIZARD,
                     ],
                     'cards': [
-                        Card.GREAT_FLOOD,
-                        Card.DRAGON,
-                        Card.ISLAND,
-                        Card.MOUNTAIN,
-                        Card.UNICORN,
+                        Name.GREAT_FLOOD,
+                        Name.DRAGON,
+                        Name.ISLAND,
+                        Name.MOUNTAIN,
+                        Name.UNICORN,
                     ]
                 }
             }
         },
-        Card.WORLD_TREE: {
+        Name.WORLD_TREE: {
             'suit': Suit.ARTIFACT,
             'base_strength': 2,
             'bonus': {

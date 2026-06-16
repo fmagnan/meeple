@@ -16,7 +16,7 @@ class Suit(IntEnum):
     WIZARD = 11
 
 
-class Card(StrEnum):
+class Name(StrEnum):
     AIR_ELEMENTAL = 'Air Elemental'
     BASILISK = 'Basilisk'
     BEASTMASTER = 'Beastmaster'

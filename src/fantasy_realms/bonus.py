@@ -193,7 +193,7 @@ class Bonus:
 
     @staticmethod
     def take_one_more_card_at_the_end(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        hand.add_card(params['card'])
+        hand.add_card(params['card'].name)
         return True
 
     @staticmethod

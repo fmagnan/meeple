@@ -1,15 +1,20 @@
-from fantasy_realms.card import Card
 from typing import Any
+
+from fantasy_realms.card import Card
+from fantasy_realms.glossary import Name
 
 class Hand:
     def __init__(self, deck: dict[str, Any]):
         self.deck: dict[str, Any] = deck
         self.cards :list[Card] = []
 
-    def add_card(self, name :str, params={}):
+    def add_card(self, name: Name, params: dict[str, Any]={}):
+        if isinstance(params.get('card'), Name):
+            params['card'] = Card.from_conf(params['card'], self.deck[params['card']])
         conf = self.deck[name]
         conf['bonus'] = params | conf.get('bonus', {})
-        self.cards.append(Card.from_conf(name, conf))
+        card = Card.from_conf(name, conf)
+        self.cards.append(card)
 
     def count_cards(self):
         return len(self.cards)
