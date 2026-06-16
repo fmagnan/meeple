@@ -1,7 +1,7 @@
 from typing import Any
 
 from fantasy_realms.card import Card
-from fantasy_realms.glossary import Name
+from fantasy_realms.glossary import Name, Suit
 
 
 class Hand:
@@ -36,15 +36,15 @@ class Hand:
 
         return total
 
-    def has_card(self, name: str) -> bool:
+    def has_card(self, name: Name) -> bool:
         for card in self.cards:
             if name == card.name:
                 return True
         return False
 
-    def has_suit(self, suit: int, exclude: Card) -> bool:
+    def has_suit(self, suit: Suit, exclude: Card) -> bool:
         for card in self.cards:
-            if card.name == exclude.name:
+            if card.is_same_as(exclude):
                 continue
             if suit == card.suit:
                 return True
