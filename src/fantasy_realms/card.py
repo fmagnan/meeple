@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any
 
 from fantasy_realms.bonus import Bonus
-from fantasy_realms.glossary import Action, Suit, Name
+from fantasy_realms.glossary import Action, Name, Suit
 from fantasy_realms.penalty import Penalty
 
 if TYPE_CHECKING:
@@ -103,7 +103,7 @@ class Card:
         self.value = 0
         self.bonus = {}
         self.penalty = {}
-        self.name = ""
+        self.name = Name.NONE
         self.suit = Suit.NONE
 
     def clear_penalty(self):
