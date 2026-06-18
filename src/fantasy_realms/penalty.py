@@ -4,8 +4,8 @@ if TYPE_CHECKING:
     from fantasy_realms.card import Card
     from fantasy_realms.hand import Hand
 
-class Penalty:
 
+class Penalty:
     @staticmethod
     def apply(hand: "Hand", current: "Card", conf: dict[str, Any]):
         action = Penalty.get_action(conf)
@@ -14,11 +14,7 @@ class Penalty:
 
     @staticmethod
     def get_action(conf: dict[str, Any]) -> str:
-        return conf['action']
-
-    @staticmethod
-    def add_base_strength_among(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
-        return False
+        return conf["action"]
 
     @staticmethod
     def unless_at_least(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
@@ -26,25 +22,25 @@ class Penalty:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
+            if card.has_suit_among(params["suits"]):
                 found = True
         if not found:
-            current.substract_penalty(int(params['value']))
+            current.substract_penalty(int(params["value"]))
 
         return not found
 
     @staticmethod
     def blanks(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        target_suits = params.get('targets', {}).get('suits', [])
-        excludes = params.get('excludes', [])
+        target_suits = params.get("targets", {}).get("suits", [])
+        excludes = params.get("excludes", [])
         found = False
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if len(target_suits) == 0 or card.has_suit_among(target_suits):
-                if 'suits' in excludes and card.has_suit_among(excludes['suits']):
+                if "suits" in excludes and card.has_suit_among(excludes["suits"]):
                     continue
-                if 'cards' in excludes and card.is_among(excludes['cards']):
+                if "cards" in excludes and card.is_among(excludes["cards"]):
                     continue
                 card.blank()
                 found = True
@@ -56,8 +52,8 @@ class Penalty:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
-                current.substract_penalty(int(params['value']))
+            if card.has_suit_among(params["suits"]):
+                current.substract_penalty(int(params["value"]))
                 found = True
         return found
 
@@ -67,7 +63,7 @@ class Penalty:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
+            if card.has_suit_among(params["suits"]):
                 return False
             current.blank()
             found = True
@@ -79,7 +75,7 @@ class Penalty:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.is_among(params['cards']):
-                current.substract_penalty(int(params['value']))
+            if card.is_among(params["cards"]):
+                current.substract_penalty(int(params["value"]))
                 found = True
         return found

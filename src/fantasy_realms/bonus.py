@@ -4,8 +4,8 @@ if TYPE_CHECKING:
     from fantasy_realms.card import Card
     from fantasy_realms.hand import Hand
 
-class Bonus:
 
+class Bonus:
     @staticmethod
     def apply(hand: "Hand", current: "Card", conf: dict[str, Any]) -> bool:
         action = Bonus.get_action(conf)
@@ -14,7 +14,7 @@ class Bonus:
 
     @staticmethod
     def get_action(conf: dict[str, Any]) -> str:
-        return conf['action']
+        return conf["action"]
 
     @staticmethod
     def for_each(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
@@ -22,8 +22,8 @@ class Bonus:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
-                current.add_bonus( int(params['value']))
+            if card.has_suit_among(params["suits"]):
+                current.add_bonus(int(params["value"]))
                 found = True
         return found
 
@@ -33,23 +33,25 @@ class Bonus:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.is_among(params['cards']):
-                current.add_bonus(int(params['value']))
+            if card.is_among(params["cards"]):
+                current.add_bonus(int(params["value"]))
                 found = True
 
         return found
 
     @staticmethod
-    def with_any_one_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def with_any_one_suit(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         found = False
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
+            if card.has_suit_among(params["suits"]):
                 found = True
 
         if found:
-            current.add_bonus(int(params['value']))
+            current.add_bonus(int(params["value"]))
         return found
 
     @staticmethod
@@ -58,64 +60,70 @@ class Bonus:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
+            if card.has_suit_among(params["suits"]):
                 card.clear_penalty()
                 found = True
         return found
 
     @staticmethod
     def if_no(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        found=True
+        found = True
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.has_suit_among(params['suits']):
+            if card.has_suit_among(params["suits"]):
                 return False
-        current.add_bonus(int(params['value']))
+        current.add_bonus(int(params["value"]))
         return found
 
     @staticmethod
     def with_both_cards(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        for card in params['cards']:
+        for card in params["cards"]:
             if not hand.has_card(card):
                 return False
-        for suit in params['suits']:
+        for suit in params["suits"]:
             if not hand.has_suit(suit, current):
                 return False
-        current.add_bonus(int(params['value']))
+        current.add_bonus(int(params["value"]))
         return True
 
     @staticmethod
     def change_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         for card in hand.cards:
-            if not card.is_same_as(params['card']):
+            if not card.is_same_as(params["card"]):
                 continue
-            card.change_suit(params['suit'])
+            card.change_suit(params["suit"])
             return True
         return False
 
     @staticmethod
-    def with_card_and_either(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        for card in params['cards']:
+    def with_card_and_either(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
+        for card in params["cards"]:
             if not hand.has_card(card):
                 return False
-        for card in params['either']:
+        for card in params["either"]:
             if hand.has_card(card):
-                current.add_bonus(int(params['value']))
+                current.add_bonus(int(params["value"]))
                 return True
         return False
 
     @staticmethod
-    def clears_word_from_penalty(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def clears_word_from_penalty(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
             if card.has_penalty():
-                card.remove_word_from_penalty(params['word'])
+                card.remove_word_from_penalty(params["word"])
         return False
 
     @staticmethod
-    def different_cards_in_same_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def different_cards_in_same_suit(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         count_suits = {}
         for card in hand.cards:
             if not count_suits.get(card.suit):
@@ -123,13 +131,15 @@ class Bonus:
             else:
                 count_suits[card.suit] += 1
         for suit, count in count_suits.items():
-            if count >= int(params['cards']):
-                current.add_bonus(int(params['value']))
+            if count >= int(params["cards"]):
+                current.add_bonus(int(params["value"]))
                 return True
         return False
 
     @staticmethod
-    def each_active_card_is_from_different_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def each_active_card_is_from_different_suit(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         suits = []
         for card in hand.cards:
             if card.is_blanked():
@@ -137,18 +147,18 @@ class Bonus:
             if card.suit in suits:
                 return False
             suits.append(card.suit)
-        current.add_bonus(int(params['value']))
+        current.add_bonus(int(params["value"]))
         return True
 
     @staticmethod
     def card_run(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         base_strengths = []
         for card in hand.cards:
-            if not card.base_strength in base_strengths:
+            if card.base_strength not in base_strengths:
                 base_strengths.append(card.base_strength)
         longest_run = Bonus.look_for_longest_run(base_strengths)
-        if longest_run >= int(params['cards']):
-            current.add_bonus(int(params['value']))
+        if longest_run >= int(params["cards"]):
+            current.add_bonus(int(params["value"]))
             return True
         return False
 
@@ -160,23 +170,25 @@ class Bonus:
         longest_run = []
         current_run = [strengths[0]]
         for i in range(1, len(strengths)):
-            if strengths[i] == strengths[i-1] +1:
+            if strengths[i] == strengths[i - 1] + 1:
                 current_run.append(strengths[i])
             else:
                 if len(current_run) > len(longest_run):
                     longest_run = current_run
-                current_run =[strengths[i]]
+                current_run = [strengths[i]]
         if len(current_run) > len(longest_run):
-            longest_run=current_run
+            longest_run = current_run
         return len(longest_run)
 
     @staticmethod
-    def add_base_strength_among(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def add_base_strength_among(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         maximum_value = 0
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if not card.has_suit_among(params['suits']):
+            if not card.has_suit_among(params["suits"]):
                 continue
             if card.base_strength > maximum_value:
                 maximum_value = card.base_strength
@@ -186,29 +198,35 @@ class Bonus:
     @staticmethod
     def duplicate(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
         for card in hand.cards:
-            if card.is_same_as(params['card']):
+            if card.is_same_as(params["card"]):
                 current.duplicate(card)
                 return True
         return False
 
     @staticmethod
-    def take_one_more_card_at_the_end(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        hand.add_card(params['card'].name)
+    def take_one_more_card_at_the_end(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
+        hand.add_card(params["card"].name)
         return True
 
     @staticmethod
-    def take_on_name_and_suit(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
-        current.take_on_name_and_suit(params['card'])
+    def take_on_name_and_suit(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
+        current.take_on_name_and_suit(params["card"])
         return True
 
     @staticmethod
-    def with_any_one_card(hand: "Hand", current: "Card", params: dict[str, Any]) -> bool:
+    def with_any_one_card(
+        hand: "Hand", current: "Card", params: dict[str, Any]
+    ) -> bool:
         found = False
         for card in hand.cards:
             if card.is_same_as(current):
                 continue
-            if card.is_among(params['cards']):
-                found=True
+            if card.is_among(params["cards"]):
+                found = True
         if found:
-            current.add_bonus(int(params['value']))
+            current.add_bonus(int(params["value"]))
         return found
