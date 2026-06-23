@@ -15,8 +15,10 @@ class Card:
         suit: int,
         base_strength: int,
         bonus: dict[str, Any],
-        penalty: dict[str, Any] = {},
+        penalty: dict[str, Any] | None = None,
     ):
+        if penalty is None:
+            penalty = {}
         self.name: Name = name
         self.suit: int = suit
         self.base_strength: int = base_strength
@@ -25,7 +27,9 @@ class Card:
         self.value: int = base_strength
 
     @classmethod
-    def from_conf(cls, name: Name, conf: dict[str, Any] = {}) -> "Card":
+    def from_conf(cls, name: Name, conf: dict[str, Any] | None = None) -> "Card":
+        if conf is None:
+            conf = {}
         return cls(
             name,
             int(conf.get("suit", 0)),
@@ -56,7 +60,7 @@ class Card:
         return hand
 
     def apply_bonus(self, hand: "Hand"):
-        if len(self.bonus) == 0:
+        if not self.bonus:
             return
         if self.bonus.get("and"):
             for bonus in self.bonus["and"]:
@@ -70,7 +74,7 @@ class Card:
         Bonus.apply(hand, self, self.bonus)
 
     def apply_penalty(self, hand: "Hand"):
-        if len(self.penalty) == 0:
+        if not self.penalty:
             return
         if self.penalty.get("and"):
             for penalty in self.penalty["and"]:

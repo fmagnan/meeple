@@ -164,7 +164,7 @@ class Bonus:
 
     @staticmethod
     def look_for_longest_run(strengths: list[int]) -> int:
-        if len(strengths) == 0:
+        if not strengths:
             return 0
         strengths.sort()
         longest_run = []

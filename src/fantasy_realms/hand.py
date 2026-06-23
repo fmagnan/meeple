@@ -5,15 +5,17 @@ from fantasy_realms.glossary import Name, Suit
 
 
 class Hand:
-    def __init__(self, deck :dict[str, Any]):
-        self.deck :dict[str, Any] = deck
-        self.cards :list[Card] = []
+    def __init__(self, deck: dict[str, Any]):
+        self.deck: dict[str, Any] = deck
+        self.cards: list[Card] = []
 
-    def add_card(self, name: Name, params: dict[str, Any]={}):
-        if isinstance(params.get('card'), Name):
-            params['card'] = Card.from_conf(params['card'], self.deck[params['card']])
+    def add_card(self, name: Name, params: dict[str, Any] | None = None):
+        if params is None:
+            params = {}
+        if isinstance(params.get("card"), Name):
+            params["card"] = Card.from_conf(params["card"], self.deck[params["card"]])
         conf = self.deck[name]
-        conf['bonus'] = params | conf.get('bonus', {})
+        conf["bonus"] = params | conf.get("bonus", {})
         card = Card.from_conf(name, conf)
         self.cards.append(card)
 
